@@ -10,7 +10,42 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Project Description
+## Project Description: Estimation of Obesity Levels
 
+#### Rhea Bhat, Yaashi Khatri, Ian Wood, Neha George, Natalie Nguyen, Andrea Flores, Hiba Ansari
+#### rb43853, ADD YOUR EIDS HERE
 
+### Background
+ADD BACKGROUND ABOUT OBESITY AROUND THE WORLD. More specifically in Mexico, Peru, and Colombia. Maybe add how physical condition, eating habits, and family history plays a role?
+
+### Task
+The purpose of our project is to predict the obesity levels based on various eating habits and physical condition. In order to analyze our data, we will be using regression.
+
+### Dataset
+The set includes data for the estimation of obesity levels in individuals from the countries of Mexico, Peru and Colombia, based on their eating habits and physical condition. The data contains 17 attributes and 2111 records, the records are labeled with the class variable `NObesity` (Obesity Level), which allows classification of the data using the values of Insufficient Weight, Normal Weight, Overweight Level I, Overweight Level II, Obesity Type I, Obesity Type II and Obesity Type III. 
+
+### Visualization
+
+```{r message=FALSE}
+#Loading the data
+library(tidyverse)
+library(readxl)
+obesityData <- read_excel("~/proj/obesityData.xlsx")
+View(obesityData)
+```
+
+#### Before creating a visualization, here is a glimpse of the data
+
+```{R}
+# Converting
+odata <- as.data.frame(obesityData)
+head(odata)
+```
+
+#### Below are a few visualizations that help us better understand the data
+
+```{R}
+odata %>% group_by(Age) %>% ggplot(aes(x=NObeyesdad, y=Weight, color=Gender)) + geom_bar(stat="identity") + xlab("Weight Classification") + ylab("Weight (in lbs) ")+ ggtitle("Bar Plot: Weight vs. Classification") + scale_x_discrete(guide = guide_axis(n.dodge=2))
+
+```
 
