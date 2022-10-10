@@ -47,5 +47,7 @@ head(odata)
 ```{R}
 odata %>% group_by(Age) %>% ggplot(aes(x=NObeyesdad, y=Weight, color=Gender)) + geom_bar(stat="identity") + xlab("Weight Classification") + ylab("Weight (in lbs) ")+ ggtitle("Bar Plot: Weight vs. Classification") + scale_x_discrete(guide = guide_axis(n.dodge=2))
 
+
+
 ```
 
