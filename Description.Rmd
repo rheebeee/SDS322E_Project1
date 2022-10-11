@@ -57,7 +57,7 @@ Hruby, A., Manson, J. E., Qi, L., Malik, V. S., Rimm, E. B., Sun, Q., Willett, W
 The purpose of our project is to predict the obesity levels based on various eating habits and physical condition. In order to analyze our data, we will be using regression.
 
 ### Dataset
-The set includes data for the estimation of obesity levels in individuals from the countries of Mexico, Peru and Colombia, based on their eating habits and physical condition. The data contains 17 attributes and 2111 records, the records are labeled with the class variable `NObesity` (Obesity Level), which allows classification of the data using the values of Insufficient Weight, Normal Weight, Overweight Level I, Overweight Level II, Obesity Type I, Obesity Type II and Obesity Type III. 
+The data will be obtained from the data article by Palechor and Manotas (2019), which includes text and table data acquired through survey. The set includes data for the estimation of obesity levels in individuals from the countries of Mexico, Peru and Colombia, based on their eating habits and physical condition. The data contains 17 attributes and 2111 records, the records are labeled with the class variable `NObesity` (Obesity Level), which allows classification of the data using the values of Insufficient Weight, Normal Weight, Overweight Level I, Overweight Level II, Obesity Type I, Obesity Type II and Obesity Type III. 
 
 ### Visualization
 
@@ -83,3 +83,14 @@ head(odata)
 odata %>% group_by(Age) %>% ggplot(aes(x=NObeyesdad, y=Weight, color=Gender)) + geom_bar(stat="identity") + xlab("Weight Classification") + ylab("Weight (in lbs) ")+ ggtitle("Bar Plot: Weight vs. Classification") + scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
 
+
+#### References
+Beccuti, G., & Pannain, S. (2011). Sleep and obesity: Current Opinion in Clinical Nutrition and Metabolic Care, 14(4), 402–412. https://doi.org/10.1097/MCO.0b013e3283479109
+
+Fock, K. M., & Khoo, J. (2013). Diet and exercise in management of obesity and overweight: Diet and exercise for weight management. Journal of Gastroenterology and Hepatology, 28, 59–63. https://doi.org/10.1111/jgh.12407
+
+Fruh, S. M. (2017). Obesity: Risk factors, complications, and strategies for sustainable long‐term weight management. Journal of the American Association of Nurse Practitioners, 29(S1), S3–S14. https://doi.org/10.1002/2327-6924.12510
+
+Hruby, A., Manson, J. E., Qi, L., Malik, V. S., Rimm, E. B., Sun, Q., Willett, W. C., & Hu, F. B. (2016). Determinants and consequences of obesity. American Journal of Public Health, 106(9), 1656–1662. https://doi.org/10.2105/AJPH.2016.303326
+
+Palechor, F. M., & Manotas, A. de la H. (2019). Dataset for estimation of obesity levels based on eating habits and physical condition in individuals from Colombia, Peru and Mexico. Data in Brief, 25, 104344. https://doi.org/10.1016/j.dib.2019.104344
