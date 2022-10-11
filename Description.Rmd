@@ -12,8 +12,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Project Description: Estimation of Obesity Levels
 
+According to WHO, being overweight or obese is defined as abnormal or excessive fat accumulation that presents a risk to health. A body mass index (BMI) over 25 is considered overweight, and over 30 is obese. The issue has grown to epidemic proportions, with over 4 million people dying each year as a result of being overweight or obese in 2017 according to the global burden of disease.(WHO, 2021). As a result, the collaborative efforts to understand overweight and obesity and to promote healthy weight is an area to be reasearched on. In line with this, this project aims at predicting the obesity level of individuals. The dataset under study includes data for the estimation of obesity levels in individuals based on their eating habits and physical condition in Mexico,Peru ,and Columbia. The data contains 17 attributes and 2111 individuals aged 14 to 61. The 17 attributes are related to individual habits that are likely to determine obesity levels, such as number of main meals, time using technology devices, gender and transportation used. The 2111 individuals are labeled with the class variable NObeyesdad (Obesity Level), that allows classification of the data using the values of Insufficient Weight (under Weight), Normal Weight, Overweight Level I, Overweight Level II, Obesity Type I, Obesity Type II and Obesity Type III. 77% of the data was generated synthetically using the Weka tool and the SMOTE filter, 23% of the data was collected directly from users through a web platform.
+
 #### Rhea Bhat, Yaashi Khatri, Ian Wood, Neha George, Natalie Nguyen, Andrea Flores, Hiba Ansari
-#### rb43853, ha9982, nmn498, nmg2337 ADD YOUR EIDS HERE
+#### rb43853, yak264, nmg2337, nmn498, ha9982 ADD YOUR EIDS HERE
 
 ### Project Goals
 We want to examine the effect of eating habit and physical conditions on obesity levels in Mexico, Peru, and Colombia. We will utilize a multiple regression model to examine these effects. 
@@ -63,7 +65,7 @@ View(obesityData)
 ```{R}
 # Converting
 odata <- as.data.frame(obesityData)
-head(odata)
+glimpse(odata)
 ```
 
 #### Below are a few visualizations that help us better understand the data
@@ -74,6 +76,9 @@ odata %>% group_by(Age) %>% ggplot(aes(x=NObeyesdad, y=Weight, color=Gender)) + 
 
 
 #### References
+
+World Health Organization. (n.d.). Obesity and overweight. World Health Organization. Retrieved October 11, 2022, from https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight 
+
 Beccuti, G., & Pannain, S. (2011). Sleep and obesity: Current Opinion in Clinical Nutrition and Metabolic Care, 14(4), 402–412. https://doi.org/10.1097/MCO.0b013e3283479109
 
 Fock, K. M., & Khoo, J. (2013). Diet and exercise in management of obesity and overweight: Diet and exercise for weight management. Journal of Gastroenterology and Hepatology, 28, 59–63. https://doi.org/10.1111/jgh.12407
