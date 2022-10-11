@@ -18,6 +18,40 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Background
 ADD BACKGROUND ABOUT OBESITY AROUND THE WORLD. More specifically in Mexico, Peru, and Colombia. Maybe add how physical condition, eating habits, and family history plays a role?
 
+
+**Factors Contributing to Obesity**
+
+Obesity is a disease characterized by an excessive accumulation of body fat that poses a risk to the individual's health. The tool for measuring whether an individual is overweight or obese is through body mass index (BMI), in which a BMI of 25-29.9 kg/m^2^ indicates being overweight and a BMI  $>$ 30 indicates obesity (Fock & Khoo, 2013). There are a multitude of factors that contribute to the development of obesity. Among these factors include diet, physical conditions, and family history. 
+
+- __*Diet*__
+   
+    An imbalanced diet is the main contributing factor to the onset of obesity. Individuals that subscribe to diets with higher intakes in saturated and trans fat, refined grains, red meats, sweets, and sweetened sugary-beverages are observed to have increased weight gain and risk of obesity. Conversely, individuals with diets high in whole grains, vegetables, fruit, yogurt, nuts, fish, and poultry were observed to have less weight gain and decreased risk of obesity (Hruby et al., 2016).
+
+
+- __*Physical Conditions*__
+    
+    Physical conditions refer to exercise, sedentary vs. active lifestyle, and sleep quality. According to a study conducted by Hruby et al. (2016), higher levels of physical activity (defined as activity $\ge$ 30 min/day) resulted in less weight gained than low physical activity levels (defined as activity $\le$ 30 min/day). Conversely, greater times spent engaged in sedentary activities (watching TV, using cellphone, playing video games, etc.) results in increased risk of obesity. The built environment of individuals may influence BMI as well. Higher density areas that are more walkable are likely to promote walking or bicycling as a means of transportation, which would increase average physical activity in these areas (Hruby et al., 2016).
+    
+    Sleep duration and quality also impacts risk of weight gain. It was found that short duration sleep (time slept $\le$ 6 hr per night) and poor sleep quality are linked to increased risk of obesity (Beccuti & Pannain, 2011).
+
+    
+- __*Family History*__
+   
+    Family history also contributes to the development of obesity and consists genetic factors and home environment. Genetics may impact dietary palate, food sensitivity, and metabolism of individuals. Variations in these genes could result in adverse eating choices (i.e., selective, limited, or excessive intake of different food groups). Moreover, Families of varying ethnic and cultural backgrounds are exposed to different types of diets that emphasize different food groups. Family environment also influences eating behaviors, which determines diet quality and quantity. The home environment determines if food is provided consistently, prepared at home, and if it is healthy and nutritious (Fruh, 2017).
+    
+    
+    
+#### References
+Beccuti, G., & Pannain, S. (2011). Sleep and obesity: Current Opinion in Clinical Nutrition and Metabolic Care, 14(4), 402–412. https://doi.org/10.1097/MCO.0b013e3283479109
+
+Fock, K. M., & Khoo, J. (2013). Diet and exercise in management of obesity and overweight: Diet and exercise for weight management. Journal of Gastroenterology and Hepatology, 28, 59–63. https://doi.org/10.1111/jgh.12407
+
+Fruh, S. M. (2017). Obesity: Risk factors, complications, and strategies for sustainable long‐term weight management. Journal of the American Association of Nurse Practitioners, 29(S1), S3–S14. https://doi.org/10.1002/2327-6924.12510
+
+Hruby, A., Manson, J. E., Qi, L., Malik, V. S., Rimm, E. B., Sun, Q., Willett, W. C., & Hu, F. B. (2016). Determinants and consequences of obesity. American Journal of Public Health, 106(9), 1656–1662. https://doi.org/10.2105/AJPH.2016.303326
+
+
+
 ### Task
 The purpose of our project is to predict the obesity levels based on various eating habits and physical condition. In order to analyze our data, we will be using regression.
 
