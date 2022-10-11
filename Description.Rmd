@@ -19,8 +19,6 @@ knitr::opts_chunk$set(echo = TRUE)
 We want to examine the effect of eating habit and physical conditions on obesity levels in Mexico, Peru, and Colombia. We will utilize a multiple regression model to examine these effects. 
 
 ### Background
-ADD BACKGROUND ABOUT OBESITY AROUND THE WORLD. More specifically in Mexico, Peru, and Colombia. Maybe add how physical condition, eating habits, and family history plays a role?
-
 
 **Factors Contributing to Obesity**
 
@@ -83,8 +81,5 @@ head(odata)
 
 ```{R}
 odata %>% group_by(Age) %>% ggplot(aes(x=NObeyesdad, y=Weight, color=Gender)) + geom_bar(stat="identity") + xlab("Weight Classification") + ylab("Weight (in lbs) ")+ ggtitle("Bar Plot: Weight vs. Classification") + scale_x_discrete(guide = guide_axis(n.dodge=2))
-
-
-
 ```
 
