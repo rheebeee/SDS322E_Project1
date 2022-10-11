@@ -13,7 +13,10 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Project Description: Estimation of Obesity Levels
 
 #### Rhea Bhat, Yaashi Khatri, Ian Wood, Neha George, Natalie Nguyen, Andrea Flores, Hiba Ansari
-#### rb43853, ha9982, nmn498 ADD YOUR EIDS HERE
+#### rb43853, ha9982, nmn498, nmg2337 ADD YOUR EIDS HERE
+
+### Project Goals
+We want to examine the effect of eating habit and physical conditions on obesity levels in Mexico, Peru, and Colombia. We will utilize a multiple regression model to examine these effects. 
 
 ### Background
 ADD BACKGROUND ABOUT OBESITY AROUND THE WORLD. More specifically in Mexico, Peru, and Colombia. Maybe add how physical condition, eating habits, and family history plays a role?
