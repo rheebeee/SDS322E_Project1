@@ -2,20 +2,18 @@
 title: "Project Description"
 author: Rhea Bhat, Yaashi Khatri, Ian Wood, Neha George, Natalie Nguyen, Andrea Flores,
   Hiba Ansari
-date: "2022-09-29"
+date: "2022-10-13"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+#### rb43853, yak264, nmg2337, nmn498, ha9982, agf646, ipw89
 
 ## Project Description: Estimation of Obesity Levels
 
 According to WHO, being overweight or obese is defined as abnormal or excessive fat accumulation that presents a risk to health. A body mass index (BMI) over 25 is considered overweight, and over 30 is obese. The issue has grown to epidemic proportions, with over 4 million people dying each year as a result of being overweight or obese in 2017 according to the global burden of disease.(WHO, 2021). As a result, the collaborative efforts to understand overweight and obesity and to promote healthy weight is an area to be researched on. In line with this, this project aims at predicting the obesity level of individuals. The dataset under study includes data for the estimation of obesity levels in individuals based on their eating habits and physical condition in Mexico, Peru ,and Columbia. The data contains 17 attributes and 2111 individuals aged 14 to 61. The 17 attributes are related to individual habits that are likely to determine obesity levels, such as number of main meals, time using technology devices, gender, and transportation used. The 2111 individuals are labeled with the class variable NObeyesdad (Obesity Level), that allows classification of the data using the values of Insufficient Weight (under Weight), Normal Weight, Overweight Level I, Overweight Level II, Obesity Type I, Obesity Type II and Obesity Type III. 77% of the data was generated synthetically using the Weka tool and the SMOTE filter, 23% of the data was collected directly from users through a web platform.
-
-#### Rhea Bhat, Yaashi Khatri, Ian Wood, Neha George, Natalie Nguyen, Andrea Flores, Hiba Ansari
-#### rb43853, yak264, nmg2337, nmn498, ha9982, agf646, ipw89
 
 ### Project Goals
 We want to examine the effect of eating habits and physical conditions on obesity levels in Mexico, Peru, and Colombia. We will utilize a multiple regression model to examine these effects. 
@@ -50,12 +48,11 @@ The data will be obtained from the data article by Palechor and Manotas (2019), 
 
 ### Visualization
 
-```{r message=FALSE}
+```{R}
 #Loading the data
 library(tidyverse)
 library(readxl)
 obesityData <- read_excel("~/proj/obesityData.xlsx")
-View(obesityData)
 ```
 
 #### Before creating a visualization, here is a glimpse of the data
@@ -79,8 +76,11 @@ odata %>% ggplot() + geom_point(aes(x = Age, y = bmi, color= Gender)) + ylab("bm
 ggplot(odata) + geom_boxplot(aes(x=NObeyesdad, y=bmi))+ xlab("Weight Classification") + ylab("bmi in kg/m^2") + ggtitle("Boxplot: bmi vs Weight Classification")+ scale_x_discrete(guide = guide_axis(n.dodge=2))
 
 ```
+
 #### Links
-https://archive.ics.uci.edu/ml/machine-learning-databases/00544/
+
+https://archive.ics.uci.edu/ml/machine-learning-databases/00544/  
+
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6710633/
 
 
