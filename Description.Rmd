@@ -74,6 +74,11 @@ glimpse(odata)
 odata %>% group_by(Age) %>% ggplot(aes(x=NObeyesdad, y=Weight, color=Gender)) + geom_bar(stat="identity") + xlab("Weight Classification") + ylab("Weight (in lbs) ")+ ggtitle("Bar Plot: Weight vs. Classification") + scale_x_discrete(guide = guide_axis(n.dodge=2))
 
 ggplot(odata) + geom_boxplot(aes(x=NObeyesdad, y=Age))+ xlab("Weight Classification") + ylab("Age") + ggtitle("Boxplot: Age vs Weight Classification")+ scale_x_discrete(guide = guide_axis(n.dodge=2))
+
+
+odata <- odata %>% mutate(bmi = Weight / (Height)^2) 
+odata %>% ggplot() + geom_point(aes(x = Age, y = bmi, color= Gender)) + ylab("bmi in kg/m^2") + xlab("age (in years) ")+ ggtitle("Scatterplot: age vs. bmi")
+
 ```
 
 
