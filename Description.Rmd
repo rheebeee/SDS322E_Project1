@@ -12,13 +12,16 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Project Description: Estimation of Obesity Levels
 
-According to WHO, being overweight or obese is defined as abnormal or excessive fat accumulation that presents a risk to health. A body mass index (BMI) over 25 is considered overweight, and over 30 is obese. The issue has grown to epidemic proportions, with over 4 million people dying each year as a result of being overweight or obese in 2017 according to the global burden of disease.(WHO, 2021). As a result, the collaborative efforts to understand overweight and obesity and to promote healthy weight is an area to be reasearched on. In line with this, this project aims at predicting the obesity level of individuals. The dataset under study includes data for the estimation of obesity levels in individuals based on their eating habits and physical condition in Mexico, Peru ,and Columbia. The data contains 17 attributes and 2111 individuals aged 14 to 61. The 17 attributes are related to individual habits that are likely to determine obesity levels, such as number of main meals, time using technology devices, gender, and transportation used. The 2111 individuals are labeled with the class variable NObeyesdad (Obesity Level), that allows classification of the data using the values of Insufficient Weight (under Weight), Normal Weight, Overweight Level I, Overweight Level II, Obesity Type I, Obesity Type II and Obesity Type III. 77% of the data was generated synthetically using the Weka tool and the SMOTE filter, 23% of the data was collected directly from users through a web platform.
+According to WHO, being overweight or obese is defined as abnormal or excessive fat accumulation that presents a risk to health. A body mass index (BMI) over 25 is considered overweight, and over 30 is obese. The issue has grown to epidemic proportions, with over 4 million people dying each year as a result of being overweight or obese in 2017 according to the global burden of disease.(WHO, 2021). As a result, the collaborative efforts to understand overweight and obesity and to promote healthy weight is an area to be researched on. In line with this, this project aims at predicting the obesity level of individuals. The dataset under study includes data for the estimation of obesity levels in individuals based on their eating habits and physical condition in Mexico, Peru ,and Columbia. The data contains 17 attributes and 2111 individuals aged 14 to 61. The 17 attributes are related to individual habits that are likely to determine obesity levels, such as number of main meals, time using technology devices, gender, and transportation used. The 2111 individuals are labeled with the class variable NObeyesdad (Obesity Level), that allows classification of the data using the values of Insufficient Weight (under Weight), Normal Weight, Overweight Level I, Overweight Level II, Obesity Type I, Obesity Type II and Obesity Type III. 77% of the data was generated synthetically using the Weka tool and the SMOTE filter, 23% of the data was collected directly from users through a web platform.
 
 #### Rhea Bhat, Yaashi Khatri, Ian Wood, Neha George, Natalie Nguyen, Andrea Flores, Hiba Ansari
-#### rb43853, yak264, nmg2337, nmn498, ha9982, agf646 ADD YOUR EIDS HERE
+#### rb43853, yak264, nmg2337, nmn498, ha9982, agf646, ipw89
 
 ### Project Goals
 We want to examine the effect of eating habits and physical conditions on obesity levels in Mexico, Peru, and Colombia. We will utilize a multiple regression model to examine these effects. 
+
+We will calculate the coefficient of determination (R^2 value) to judge the linearity of the data by: 
+Exploring the relationship between various lifestyle choices (i.e transportation, smoking, etc.) and their weight classification
 
 ### Background
 
@@ -41,11 +44,6 @@ Obesity is a disease characterized by an excessive accumulation of body fat that
 - __*Family History*__
    
     Family history also contributes to the development of obesity and consists genetic factors and home environment. Genetics may impact dietary palate, food sensitivity, and metabolism of individuals. Variations in these genes could result in adverse eating choices (i.e., selective, limited, or excessive intake of different food groups). Moreover, Families of varying ethnic and cultural backgrounds are exposed to different types of diets that emphasize different food groups. Family environment also influences eating behaviors, which determines diet quality and quantity. The home environment determines if food is provided consistently, prepared at home, and if it is healthy and nutritious (Fruh, 2017).
-    
-    
-
-### Task
-The purpose of our project is to predict the obesity levels based on various eating habits and physical condition. In order to analyze our data, we will be using regression.
 
 ### Dataset
 The data will be obtained from the data article by Palechor and Manotas (2019), which consists of text and table data acquired through survey. The set includes data for the estimation of obesity levels in individuals from the countries of Mexico, Peru and Colombia, based on their eating habits and physical condition. The data contains 17 attributes and 2111 records, the records are labeled with the class variable `NObesity` (Obesity Level), which allows classification of the data using the values of Insufficient Weight, Normal Weight, Overweight Level I, Overweight Level II, Obesity Type I, Obesity Type II and Obesity Type III. 
@@ -81,6 +79,9 @@ odata %>% ggplot() + geom_point(aes(x = Age, y = bmi, color= Gender)) + ylab("bm
 ggplot(odata) + geom_boxplot(aes(x=NObeyesdad, y=bmi))+ xlab("Weight Classification") + ylab("bmi in kg/m^2") + ggtitle("Boxplot: bmi vs Weight Classification")+ scale_x_discrete(guide = guide_axis(n.dodge=2))
 
 ```
+#### Links
+https://archive.ics.uci.edu/ml/machine-learning-databases/00544/
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6710633/
 
 
 #### References
