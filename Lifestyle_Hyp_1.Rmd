@@ -1,0 +1,92 @@
+---
+title: "Lifestyle Hyp_1"
+author: "Rhea Bhat, Yaashi Khatri"
+date: "2022-11-01"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Hypothesis 2: BMI and FAF
+
+#### Data 
+```{R}
+#Loading the data
+library(tidyverse)
+library(readxl)
+library(cluster)
+library(GGally)
+
+obesityData <- read_excel("~/proj/obesityData.xlsx")
+```
+
+#### Tidying & Setting Up Data
+```{R}
+
+# Converting data & omitting NA values
+odata <- as.data.frame(obesityData)
+odata <- odata %>% na.omit()
+
+#Adding useful values (identifier & bmi calculations)
+odata <- odata %>% mutate(id= 1:n())
+odata <- odata %>% mutate(bmi = Weight / (Height)^2) 
+
+# Converting yes/no data into binary values
+odata <- odata %>% mutate(fam.binary= case_when(family_history_with_overweight=="yes" ~ 1, family_history_with_overweight=="no" ~ 0 ))
+odata <- odata %>% mutate(FAVC.binary= case_when(FAVC=="yes" ~ 1, FAVC=="no" ~ 0 ))
+odata <- odata %>% mutate(SMOKE.binary= case_when(SMOKE=="yes" ~ 1, SMOKE=="no" ~ 0 ))
+odata <- odata %>% mutate(SCC.binary= case_when(SCC=="yes" ~ 1, SCC=="no" ~ 0 ))
+
+#Tidying FAF column as integer numbers for days of physical activity
+odata$FAF<-round(as.numeric(odata$FAF), 0)
+```
+
+### Exploratory Analysis
+
+#### Data Visualization
+```{R}
+#BMI vs. FAF
+odata %>% ggplot(aes(x = FAF, y = bmi, color=Gender)) + geom_point() +
+ggtitle("BMI vs. Frequency of Physical Activity") + ylab("BMI") + xlab("FAF") 
+
+
+#Correlation Heat Map
+df <- odata %>% select_if(is.numeric) %>% na.omit() %>% select(-id, -Weight, -Height, -Age, -contains("binary"))
+cormat <-  df %>% cor()
+
+cor_table <- cormat %>%
+as.data.frame %>%
+rownames_to_column("var1")
+
+tidycor <- cor_table %>%
+pivot_longer(-1, names_to="var2", values_to = "correlation")
+  
+tidycor %>% ggplot(aes(x=var1, y=var2, fill=correlation)) + geom_tile()
+
+```
+#### Clustering
+
+```{R}
+
+#Finding what k value maximizes sil_width
+sil_width<-vector()
+clust_dat <- odata %>% select(bmi, FAF)
+
+
+for(i in 2:10){
+  temp <- clust_dat %>% kmeans(i) #compute k-means solution
+  sil <- silhouette(temp$cluster, dist(clust_dat)) #get sil widths
+  sil_width[i]<-mean(sil[,3]) #take averages 
+}
+
+# With this chart we found k=3 to be the best number of clusters
+ggplot() + geom_line(aes(x=1:10,y=sil_width)) + scale_x_continuous(name="k",breaks=1:10)
+
+#Clustering with kmeans algorithm and k=3
+clust_dat<- odata %>% select(bmi, FAF)
+
+kmeans1 <- clust_dat %>% kmeans(3)
+kmeansclust <- clust_dat %>% mutate(cluster=as.factor(kmeans1$cluster)) 
+kmeansclust %>% ggplot(aes(FAF,bmi, color=cluster)) + geom_point() + ggtitle("Kmeans Clustering of Data")
+```
