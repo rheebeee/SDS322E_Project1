@@ -88,5 +88,6 @@ clust_dat<- odata %>% select(bmi, FAF)
 
 kmeans1 <- clust_dat %>% kmeans(3)
 kmeansclust <- clust_dat %>% mutate(cluster=as.factor(kmeans1$cluster)) 
-kmeansclust %>% ggplot(aes(FAF,bmi, color=cluster)) + geom_point() + ggtitle("Kmeans Clustering of Data")
+odata$FAF <- as.factor(odata$FAF)
+kmeansclust %>% ggplot(aes(FAF,bmi, color=cluster)) + geom_boxplot() + ggtitle("Kmeans Clustering of Data")
 ```
