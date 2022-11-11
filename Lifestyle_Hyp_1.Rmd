@@ -47,7 +47,7 @@ odata$FAF<-round(as.numeric(odata$FAF), 0)
 #### Data Visualization
 ```{R}
 #BMI vs. FAF
-odata %>% ggplot(aes(x = FAF, y = bmi, color=Gender)) + geom_point() +
+odata %>% ggplot(aes(x = FAF, y = bmi, color=Gender)) + geom_boxplot() +
 ggtitle("BMI vs. Frequency of Physical Activity") + ylab("BMI") + xlab("FAF") 
 
 
@@ -62,7 +62,7 @@ rownames_to_column("var1")
 tidycor <- cor_table %>%
 pivot_longer(-1, names_to="var2", values_to = "correlation")
   
-tidycor %>% ggplot(aes(x=var1, y=var2, fill=correlation)) + geom_tile()
+tidycor %>% ggplot(aes(x=var1, y=var2, fill=correlation)) + geom_tile() 
 
 ```
 #### Clustering
@@ -80,14 +80,14 @@ for(i in 2:10){
   sil_width[i]<-mean(sil[,3]) #take averages 
 }
 
-# With this chart we found k=3 to be the best number of clusters
+# With this chart we found k=2 to be the best number of clusters
 ggplot() + geom_line(aes(x=1:10,y=sil_width)) + scale_x_continuous(name="k",breaks=1:10)
 
 #Clustering with kmeans algorithm and k=3
 clust_dat<- odata %>% select(bmi, FAF)
 
-kmeans1 <- clust_dat %>% kmeans(3)
+kmeans1 <- clust_dat %>% kmeans(2)
 kmeansclust <- clust_dat %>% mutate(cluster=as.factor(kmeans1$cluster)) 
 odata$FAF <- as.factor(odata$FAF)
-kmeansclust %>% ggplot(aes(FAF,bmi, color=cluster)) + geom_boxplot() + ggtitle("Kmeans Clustering of Data")
+kmeansclust %>% ggplot(aes(FAF,bmi, fill=cluster)) + geom_boxplot() + ggtitle("Kmeans Clustering of Data") + scale_fill_manual(values=c("#999999", "#E69F00"))
 ```
