@@ -2,29 +2,30 @@
 title: "Project Description"
 author: Rhea Bhat, Yaashi Khatri, Ian Wood, Neha George, Natalie Nguyen, Andrea Flores,
   Hiba Ansari
-date: "2022-09-29"
+date: "2022-10-13"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+#### rb43853, yak264, nmg2337, nmn498, ha9982, agf646, ipw89
 
 ## Project Description: Estimation of Obesity Levels
 
-#### Rhea Bhat, Yaashi Khatri, Ian Wood, Neha George, Natalie Nguyen, Andrea Flores, Hiba Ansari
-#### rb43853, ha9982, nmn498, nmg2337 ADD YOUR EIDS HERE
+According to WHO, being overweight or obese is defined as abnormal or excessive fat accumulation that presents a risk to health. A body mass index (BMI) over 25 is considered overweight, and over 30 is obese. The issue has grown to epidemic proportions, with over 4 million people dying each year as a result of being overweight or obese in 2017 according to the global burden of disease.(WHO, 2021). As a result, the collaborative efforts to understand overweight and obesity and to promote healthy weight is an area to be researched on. In line with this, this project aims at predicting the obesity level of individuals. The dataset under study includes data for the estimation of obesity levels in individuals based on their eating habits and physical condition in Mexico, Peru ,and Columbia. The data contains 17 attributes and 2111 individuals aged 14 to 61. The 17 attributes are related to individual habits that are likely to determine obesity levels, such as number of main meals, time using technology devices, gender, and transportation used. The 2111 individuals are labeled with the class variable NObeyesdad (Obesity Level), that allows classification of the data using the values of Insufficient Weight (under Weight), Normal Weight, Overweight Level I, Overweight Level II, Obesity Type I, Obesity Type II and Obesity Type III. 77% of the data was generated synthetically using the Weka tool and the SMOTE filter, 23% of the data was collected directly from users through a web platform.
 
 ### Project Goals
-We want to examine the effect of eating habit and physical conditions on obesity levels in Mexico, Peru, and Colombia. We will utilize a multiple regression model to examine these effects. 
+We want to examine the effect of eating habits and physical conditions on obesity levels in Mexico, Peru, and Colombia. We will utilize a multiple regression model to examine these effects. 
+
+We will calculate the coefficient of determination (R^2 value) to judge the linearity of the data by: 
+Exploring the relationship between various lifestyle choices (i.e transportation, smoking, etc.) and their weight classification
 
 ### Background
-ADD BACKGROUND ABOUT OBESITY AROUND THE WORLD. More specifically in Mexico, Peru, and Colombia. Maybe add how physical condition, eating habits, and family history plays a role?
-
 
 **Factors Contributing to Obesity**
 
-Obesity is a disease characterized by an excessive accumulation of body fat that poses a risk to the individual's health. The tool for measuring whether an individual is overweight or obese is through body mass index (BMI), in which a BMI of 25-29.9 kg/m^2^ indicates being overweight and a BMI  $>$ 30 indicates obesity (Fock & Khoo, 2013). There are a multitude of factors that contribute to the development of obesity. Among these factors include diet, physical conditions, and family history. 
+Obesity is a disease characterized by an excessive accumulation of body fat that poses a risk to the individual's health. The tool for measuring whether an individual is overweight or obese is through body mass index (BMI), in which a BMI of 25-29.9 kg/m^2 indicates being overweight and a BMI $>$ 30 indicates obesity (Fock & Khoo, 2013). There are a multitude of factors that contribute to the development of obesity. Among these factors include diet, physical conditions, and family history. 
 
 - __*Diet*__
    
@@ -41,10 +42,52 @@ Obesity is a disease characterized by an excessive accumulation of body fat that
 - __*Family History*__
    
     Family history also contributes to the development of obesity and consists genetic factors and home environment. Genetics may impact dietary palate, food sensitivity, and metabolism of individuals. Variations in these genes could result in adverse eating choices (i.e., selective, limited, or excessive intake of different food groups). Moreover, Families of varying ethnic and cultural backgrounds are exposed to different types of diets that emphasize different food groups. Family environment also influences eating behaviors, which determines diet quality and quantity. The home environment determines if food is provided consistently, prepared at home, and if it is healthy and nutritious (Fruh, 2017).
-    
-    
-    
+
+### Dataset
+The data will be obtained from the data article by Palechor and Manotas (2019), which consists of text and table data acquired through survey. The set includes data for the estimation of obesity levels in individuals from the countries of Mexico, Peru and Colombia, based on their eating habits and physical condition. The data contains 17 attributes and 2111 records, the records are labeled with the class variable `NObesity` (Obesity Level), which allows classification of the data using the values of Insufficient Weight, Normal Weight, Overweight Level I, Overweight Level II, Obesity Type I, Obesity Type II and Obesity Type III. 
+
+### Visualization
+
+```{R}
+#Loading the data
+library(tidyverse)
+library(readxl)
+obesityData <- read_excel("~/proj/obesityData.xlsx")
+```
+
+#### Before creating a visualization, here is a glimpse of the data
+
+```{R}
+# Converting
+odata <- as.data.frame(obesityData)
+glimpse(odata)
+```
+
+#### Below are a few visualizations that help us better understand the data
+
+```{R}
+odata %>% group_by(Age) %>% ggplot(aes(x=NObeyesdad, y=Weight, color=Gender)) + geom_bar(stat="identity") + xlab("Weight Classification") + ylab("Weight (in lbs) ")+ ggtitle("Bar Plot: Weight vs. Classification") + scale_x_discrete(guide = guide_axis(n.dodge=2))
+
+ggplot(odata) + geom_boxplot(aes(x=NObeyesdad, y=Age))+ xlab("Weight Classification") + ylab("Age") + ggtitle("Boxplot: Age vs Weight Classification")+ scale_x_discrete(guide = guide_axis(n.dodge=2))
+
+odata <- odata %>% mutate(bmi = Weight / (Height)^2) 
+odata %>% ggplot() + geom_point(aes(x = Age, y = bmi, color= Gender)) + ylab("bmi in kg/m^2") + xlab("age (in years) ")+ ggtitle("Scatterplot: age vs. bmi")
+
+ggplot(odata) + geom_boxplot(aes(x=NObeyesdad, y=bmi))+ xlab("Weight Classification") + ylab("bmi in kg/m^2") + ggtitle("Boxplot: bmi vs Weight Classification")+ scale_x_discrete(guide = guide_axis(n.dodge=2))
+
+```
+
+#### Links
+
+https://archive.ics.uci.edu/ml/machine-learning-databases/00544/  
+
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6710633/
+
+
 #### References
+
+World Health Organization. (n.d.). Obesity and overweight. World Health Organization. Retrieved October 11, 2022, from https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight 
+
 Beccuti, G., & Pannain, S. (2011). Sleep and obesity: Current Opinion in Clinical Nutrition and Metabolic Care, 14(4), 402–412. https://doi.org/10.1097/MCO.0b013e3283479109
 
 Fock, K. M., & Khoo, J. (2013). Diet and exercise in management of obesity and overweight: Diet and exercise for weight management. Journal of Gastroenterology and Hepatology, 28, 59–63. https://doi.org/10.1111/jgh.12407
@@ -53,38 +96,4 @@ Fruh, S. M. (2017). Obesity: Risk factors, complications, and strategies for sus
 
 Hruby, A., Manson, J. E., Qi, L., Malik, V. S., Rimm, E. B., Sun, Q., Willett, W. C., & Hu, F. B. (2016). Determinants and consequences of obesity. American Journal of Public Health, 106(9), 1656–1662. https://doi.org/10.2105/AJPH.2016.303326
 
-
-
-### Task
-The purpose of our project is to predict the obesity levels based on various eating habits and physical condition. In order to analyze our data, we will be using regression.
-
-### Dataset
-The set includes data for the estimation of obesity levels in individuals from the countries of Mexico, Peru and Colombia, based on their eating habits and physical condition. The data contains 17 attributes and 2111 records, the records are labeled with the class variable `NObesity` (Obesity Level), which allows classification of the data using the values of Insufficient Weight, Normal Weight, Overweight Level I, Overweight Level II, Obesity Type I, Obesity Type II and Obesity Type III. 
-
-### Visualization
-
-```{r message=FALSE}
-#Loading the data
-library(tidyverse)
-library(readxl)
-obesityData <- read_excel("~/proj/obesityData.xlsx")
-View(obesityData)
-```
-
-#### Before creating a visualization, here is a glimpse of the data
-
-```{R}
-# Converting
-odata <- as.data.frame(obesityData)
-head(odata)
-```
-
-#### Below are a few visualizations that help us better understand the data
-
-```{R}
-odata %>% group_by(Age) %>% ggplot(aes(x=NObeyesdad, y=Weight, color=Gender)) + geom_bar(stat="identity") + xlab("Weight Classification") + ylab("Weight (in lbs) ")+ ggtitle("Bar Plot: Weight vs. Classification") + scale_x_discrete(guide = guide_axis(n.dodge=2))
-
-
-
-```
-
+Palechor, F. M., & Manotas, A. de la H. (2019). Dataset for estimation of obesity levels based on eating habits and physical condition in individuals from Colombia, Peru and Mexico. Data in Brief, 25, 104344. https://doi.org/10.1016/j.dib.2019.104344
