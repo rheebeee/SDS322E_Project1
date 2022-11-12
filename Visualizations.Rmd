@@ -1,0 +1,115 @@
+---
+title: "Diet"
+author: "Neha George, Andrea Flores"
+date: "2022-11-12"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{R}
+#Loading the data
+library(tidyverse)
+library(dplyr)
+library(readxl)
+library(cluster)
+library(GGally)
+
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{R}
+# Converting data & omitting NA values
+odata <- as.data.frame(obesity)
+odata <- odata %>% na.omit()
+
+#Adding useful values (identifier & bmi calculations)
+odata <- odata %>% mutate(id= 1:n())
+odata <- odata %>% mutate(bmi = Weight / (Height)^2) 
+
+# Converting yes/no data into binary values
+odata <- odata %>% mutate(fam.binary= case_when(family_history_with_overweight=="yes" ~ 1, family_history_with_overweight=="no" ~ 0 ))
+odata <- odata %>% mutate(FAVC.binary= case_when(FAVC=="yes" ~ 1, FAVC=="no" ~ 0 ))
+odata <- odata %>% mutate(SMOKE.binary= case_when(SMOKE=="yes" ~ 1, SMOKE=="no" ~ 0 ))
+odata <- odata %>% mutate(SCC.binary= case_when(SCC=="yes" ~ 1, SCC=="no" ~ 0 ))
+
+# Converting categories of CAEC and FAVC into numeric values
+odata <- odata %>% mutate (CAEC.Numeric= case_when(CAEC=="no" ~ 0,CAEC=="Sometimes" ~ 1,CAEC=="Frequently" ~ 2, CALC=="Always" ~ 3)) %>% na.omit()
+odata <- odata %>% mutate (FAVC.Numeric= case_when(FAVC=="no" ~ 0,FAVC=="yes" ~ 1)) %>% na.omit()
+```
+
+```{R}
+#Data Visualization Part 1
+
+##BMI vs. Frequent Consumption of High Caloric Food (FAVC) Visualization 1
+ggplot(odata, aes(x=bmi, fill=FAVC.Numeric)) + geom_histogram() + facet_wrap(~FAVC.Numeric)  +
+ggtitle("BMI vs. Consumption of High Caloric Food Frequency") + xlab("BMI") + ylab("Count") 
+
+##BMI vs. Frequent Consumption of High Caloric Food (FAVC) Visualization 2
+FAVC_Box <- ggplot(odata, aes(x=FAVC, y=bmi, group=FAVC, fill=FAVC)) + geom_boxplot() + scale_fill_brewer(palette = "Blues") + theme_minimal() + xlab("FAVC Status")+ ylab("BMI") + ggtitle("Box Plot of BMI vs. FAVC") 
+FAVC_Box
+```
+
+```{R}
+#Data Visualization Part 2
+
+##BMI vs. Consumption of Water Daily Visualization 1
+odata %>% ggplot(aes(x = CH2O, y = bmi, color=Gender)) + geom_point() +
+ggtitle("BMI vs. Consumption of Water Daily") + ylab("BMI") + xlab("Daily Consumption of Water") 
+
+##BMI vs. Consumption of Water Daily Visualization 2
+ggplot(odata, aes(x=bmi, fill=CH2O)) + geom_histogram() + facet_wrap("Gender")  +
+ggtitle("BMI vs. Consumption of Water") + xlab("BMI") + ylab("Count")
+```
+
+```{R}
+#Data Visualization Part 3
+
+##BMI vs. Consumption of Food Between Meals Visualization 1
+ggplot(odata, aes(x=bmi, fill=CAEC.Numeric)) + geom_histogram() + facet_wrap(~CAEC.Numeric)  +
+ggtitle("BMI vs. Consumption of Food Between Meals Frequency") + xlab("BMI") + ylab("Count")
+
+##BMI vs. Consumption of Food Between Meals Visualization 2
+CAEC_Box <- ggplot(odata, aes(x=CAEC, y=bmi, group=CAEC, fill=CAEC)) + geom_boxplot() + scale_fill_brewer(palette = "Blues") + theme_minimal() + xlab("CAEC Status")+ ylab("BMI") + ggtitle("Box Plot of BMI vs. CAEC") 
+CAEC_Box
+```
+
+
+```{R}
+#Data Visualization Part 4
+
+##BMI vs. Frequency of Consumption of Vegetables Visualization 1
+odata %>% ggplot(aes(x = FCVC, y = bmi, color=Gender)) + geom_point() +
+ggtitle("BMI vs. Consumption of Vegetables") + ylab("BMI") + xlab("Consumption of Veggies")
+
+##BMI vs. Frequency of Consumption of Vegetables Visualization 2
+ggplot(odata, aes(x=bmi, fill=FCVC)) + geom_histogram() + facet_wrap("Gender")  +
+ggtitle("BMI vs. Consumption of Vegetables") + xlab("BMI") + ylab("Count")
+
+```
+
+```{R}
+#Data Visualization Part 5
+
+##BMI vs. Number of Main Meals Visualization 1
+odata %>% ggplot(aes(x = NCP, y = bmi, color=Gender)) + geom_point() +
+ggtitle("BMI vs. Number of Main Meals") + ylab("BMI") + xlab("Number of Main Meals")
+
+##BMI vs. Number of Main Meals Visualization 2
+ggplot(odata, aes(x=bmi, fill=NCP)) + geom_histogram() + facet_wrap("Gender")  +
+ggtitle("BMI vs. Number of Main Meals Frequency") + xlab("BMI") + ylab("Count")
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
