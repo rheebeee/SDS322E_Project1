@@ -192,6 +192,11 @@ kms_smoke
 clust_dat<- odata %>% select(bmi, SMOKE.binary)
 kmeans_smoke <- clust_dat %>% kmeans(4)
 kmeansclust <- clust_dat %>% mutate(cluster=as.factor(kmeans_smoke$cluster)) 
-kmeansclust %>% ggplot(aes(SMOKE.binary,bmi, fill=cluster)) + geom_boxplot() + ggtitle("Kmeans Clustering of Smoke Status Data") +  scale_fill_brewer(palette="Blues")
+
+
+km_plot2 <- kmeansclust %>% ggplot(aes(SMOKE.binary,bmi, color=cluster)) + geom_point() + ggtitle("Kmeans Clustering of Smoke Status Data") + scale_x_continuous(breaks = c(0,1)) + scale_color_manual(values = c("#9C254C", "#7890CD", "#F06292", "#2A3990")) + ylab("BMI") + xlab("Smoking Status")
+
+  
+km_plot2
 
 ```
