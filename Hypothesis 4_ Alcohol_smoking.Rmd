@@ -142,21 +142,31 @@ glimpse(odata)
 #### Data Visualization
 ```{R}
 
-#Distribution of BMI count according to Smoking Status
-ggplot(odata, aes(x=bmi, fill=SMOKE.binary)) + geom_histogram() + facet_wrap(~SMOKE.binary)  +
-ggtitle("Distribution of BMI count according to Smoking Status") + xlab("BMI") + ylab("Count") 
+#Distribution plots of BMI count according to Smoking Status
+histogram_smoke<- ggplot(odata, aes(x=bmi, fill=SMOKE)) + geom_histogram() + facet_wrap(~SMOKE)  +
+ggtitle("Histogram plots of BMI according to Smoking Status") + xlab("BMI") + ylab("Count") +
+  scale_fill_manual(values = c("#7890CD", "#F06292"))
+
+histogram_smoke
+
+
+density_smoke <- ggplot(odata, aes(x=bmi, fill=SMOKE)) + geom_density(alpha = 0.7) + facet_wrap(~NObeyesdad)  +
+ggtitle("Density plots of BMI according to Smoking Status") + xlab("BMI") + ylab("Density") +
+  scale_fill_manual(values = c("#2A3990", "#F06292"))
+
+density_smoke
 
 
 #Summary Statistics and Box Plot for BMI vs. Smoking Status
 Smoke_summarystats <- odata %>% group_by(SMOKE) %>% get_summary_stats(bmi, type="common")
 Smoke_summarystats
 
-Smoke_Box <- ggplot(odata, aes(x=SMOKE, y=bmi, group=SMOKE, fill=SMOKE)) + geom_boxplot() + scale_fill_brewer(palette = "Blues") + theme_minimal() + xlab("Smoking Status")+ ylab("BMI") + ggtitle("Box Plot of BMI vs. Smoking Status") 
+Smoke_Box <- ggplot(odata, aes(x=SMOKE, y=bmi, group=SMOKE, fill=SMOKE)) + geom_boxplot() + scale_fill_manual(values = c("#7890CD", "#F06292"))  + xlab("Smoking Status")+ ylab("BMI") + ggtitle("Box Plot of BMI vs. Smoking Status") 
 Smoke_Box 
 
 
-#BMI vs. Smoking Status 
-odata %>% ggplot(aes(x = SMOKE.binary, y = bmi, color=SMOKE)) + geom_point() + ggtitle("BMI vs. Smoking Status") + ylab("BMI") + xlab("SMOKE") 
+
+ 
           
 
 ```
@@ -184,6 +194,10 @@ kms_smoke
 clust_dat<- odata %>% select(bmi, SMOKE.binary)
 kmeans_smoke <- clust_dat %>% kmeans(4)
 kmeansclust <- clust_dat %>% mutate(cluster=as.factor(kmeans_smoke$cluster)) 
-kmeansclust %>% ggplot(aes(SMOKE.binary,bmi, color=cluster)) + geom_point() + ggtitle("Kmeans Clustering of Smoke Status Data")
 
+
+km_plot2 <- kmeansclust %>% ggplot(aes(SMOKE.binary,bmi, color=cluster)) + geom_point() + ggtitle("Kmeans Clustering of Smoke Status Data") + scale_x_continuous(breaks = c(0,1)) + scale_color_manual(values = c("#9C254C", "#7890CD", "#F06292", "#2A3990")) + ylab("BMI") + xlab("Smoking Status")
+
+  
+km_plot2
 ```
