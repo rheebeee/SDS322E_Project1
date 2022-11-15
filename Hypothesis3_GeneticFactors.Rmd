@@ -1,0 +1,89 @@
+---
+title: "Hypothesis3_GeneticFactors"
+author: "Yaashi Khatri"
+output: html_document
+date: "2022-11-14"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Hypothesis 3: BMI and family_history
+
+#### Data 
+```{R}
+#Loading the data
+library(tidyverse)
+library(dplyr)
+library(readxl)
+library(cluster)
+library(GGally)
+library(ggplot2)
+
+obesityData <- read_excel("~/SDS322E_Project1/obesityData.xlsx")
+```
+#### Tidying & Setting Up Data
+```{R}
+
+# Converting data & omitting NA values
+odata <- as.data.frame(obesityData)
+odata <- odata %>% na.omit()
+
+#Adding useful values (identifier & bmi calculations)
+odata <- odata %>% mutate(id= 1:n())
+odata <- odata %>% mutate(bmi = Weight / (Height)^2) 
+
+# Converting yes/no data into binary values
+odata <- odata %>% mutate(fam.binary= case_when(family_history_with_overweight=="yes" ~ 1, family_history_with_overweight=="no" ~ 0 ))
+odata <- odata %>% mutate(FAVC.binary= case_when(FAVC=="yes" ~ 1, FAVC=="no" ~ 0 ))
+odata <- odata %>% mutate(SMOKE.binary= case_when(SMOKE=="yes" ~ 1, SMOKE=="no" ~ 0 ))
+odata <- odata %>% mutate(SCC.binary= case_when(SCC=="yes" ~ 1, SCC=="no" ~ 0 ))
+
+#Tidying FAF column as integer numbers for days of physical activity
+odata$FAF<-round(as.numeric(odata$FAF), 0)
+```
+### Exploratory Analysis
+
+#### Data Visualization
+```{R}
+
+#Family History of being Overweight vs BMI - Data Visualization 1 
+ggplot(odata, aes(x=family_history_with_overweight, y =bmi , group = family_history_with_overweight,fill = family_history_with_overweight)) + geom_boxplot() + scale_fill_brewer(palette = "Blues") +
+ggtitle("Box Plot of BMI vs.Family History of being Overweight") + xlab("Family History of being Overweight") + ylab("BMI") 
+
+df <- odata %>% mutate(weightcat = case_when(bmi <18.5 ~ "Underweight",bmi >=18.5 & bmi<25 ~ "Normal",bmi >= 25 & bmi <30 ~ "Overweight",bmi>= 30 & bmi<35 ~ "ObesityI",bmi >= 35 & bmi<40 ~"ObesityII",bmi>=40 ~"ObesityIII"))
+
+# #BMI vs. Family History - Data Visualization 2
+ df %>% ggplot(aes(x = bmi,color = family_history_with_overweight,fill = family_history_with_overweight)) + geom_density(alpha = 0.3) + facet_grid(rows = vars(weightcat))+ggtitle("Density Plot of BMI vs. Family History") + ylab("density") + xlab("bmi")+theme(text = element_text(size = 8))
+
+
+
+```
+
+#### Clustering
+
+```{R}
+#Finding what k value maximizes sil_width
+sil_width <- vector()
+
+clust_dat <- odata %>% select(bmi, fam.binary)
+
+for(i in 2:10){
+  temp <- clust_dat %>% kmeans(i) #compute k-means solution
+  sil <- silhouette(temp$cluster, dist(clust_dat)) #get sil widths
+  sil_width[i]<-mean(sil[,3]) #take averages 
+}
+
+# With this chart we found k=2 to be the best number of clusters even though 4 is the highest because the values are very close
+kms_fam <- ggplot() + geom_line(aes(x=1:10,y=sil_width)) + scale_x_continuous(name="k",breaks=1:10) + ggtitle("Family History being Overweight Kmean")
+
+kms_fam
+
+#Clustering with kmeans algorithm and k=4
+clust_dat<- odata %>% select(bmi, fam.binary)
+kmeans_fam <- clust_dat %>% kmeans(2)
+kmeansclust <- clust_dat %>% mutate(cluster=as.factor(kmeans_fam$cluster))
+odata$fam.binary <- as.factor(odata$fam.binary)
+kmeansclust %>% ggplot(aes(fam.binary,bmi,color=cluster)) + geom_boxplot() + ggtitle("Kmeans Clustering of Family History being Overweight Data")
+
+```
