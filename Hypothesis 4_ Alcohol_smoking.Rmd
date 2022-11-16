@@ -44,7 +44,7 @@ odata <- odata %>% mutate (CALC.Numeric= case_when(CALC=="no" ~ 0,CALC=="Sometim
 
 
 ```{R}
-### Exploratory Analysis
+#### Exploratory Analysis
 
 #BMI vs. Alcohol (CALC) Visualization 1
 odata %>% ggplot(aes(x = CALC.Numeric, y = bmi, color=Gender)) + geom_point() +
