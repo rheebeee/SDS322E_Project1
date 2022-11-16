@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-#Hypothesis 4: Alcohol Intake
+#Hypothesis 4: Alcohol Frequency
 ```{R}
 #### Tidying & Setting Up Data
 
@@ -46,8 +46,6 @@ odata <- odata %>% mutate (CALC.Numeric= case_when(CALC=="no" ~ 0,CALC=="Sometim
 ```{R}
 ### Exploratory Analysis
 
-#### Data Visualization
-
 #BMI vs. Alcohol (CALC) Visualization 1
 odata %>% ggplot(aes(x = CALC.Numeric, y = bmi, color=Gender)) + geom_point() +
 ggtitle("BMI vs. Consumption of Alcohol Frequency") + ylab("BMI") + xlab("Alcohol Frequency") 
@@ -68,6 +66,27 @@ pivot_longer(-1, names_to="var2", values_to = "correlation")
   
 tidycor %>% ggplot(aes(x=var1, y=var2, fill=correlation)) + geom_tile()
 
+
+#### Data Visualization
+
+#Distribution plots of BMI count according to Alcohol Consumption Frequency 
+histogram_alc<- ggplot(odata, aes(x=bmi, fill=CALC)) + geom_histogram() + facet_wrap(~CALC) +
+ggtitle("Histogram plots of BMI according to Alcohol Frequency") + xlab("BMI") + ylab("Count") +
+  scale_fill_manual(values = c("#7890CD", "#F06292", "#62f079", "#6292f0"))
+histogram_alc
+
+density_alc <- ggplot(odata, aes(x=bmi, fill=CALC)) + geom_density(alpha = 0.7) + facet_wrap(~NObeyesdad)  +
+ggtitle("Density plots of BMI according to Alcohol Frequency") + xlab("BMI") + ylab("Density") +
+  scale_fill_manual(values = c("#2A3990", "#F06292", "#62f079", "#6292f0"))
+density_alc
+
+#Summary Statistics and Box Plot for BMI vs. CALC
+Alc_summarystats <- odata %>% group_by(CALC.Numeric) %>% get_summary_stats(bmi, type="common")
+Alc_summarystats
+
+#Boxplot for BMI vs CALC
+Box_Alc <- ggplot(odata, aes(x=CALC, y=bmi, group=CALC, fill=CALC)) + geom_boxplot() + scale_fill_manual(values = c("#7890CD", "#F06292", "#62f079", "#92f062"))  + xlab("Alcohol Frequency")+ ylab("BMI") + ggtitle("Box Plot of BMI vs. Alcohol Frequency") 
+Box_Alc
 
 
 ```
