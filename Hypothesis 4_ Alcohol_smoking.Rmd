@@ -18,7 +18,7 @@ library(tidyverse)
 library(readxl)
 library(cluster)
 library(GGally)
-
+library(rstatix)
 
 odata <- as.data.frame(obesityData)
 odata <- odata %>% na.omit()
@@ -113,6 +113,7 @@ library(tidyverse)
 library(readxl)
 library(cluster)
 library(GGally)
+library(rstatix)
 obesityData <- read_excel("~/SDS 322/obesityData.xlsx")
 glimpse(obesityData)
 ```
